@@ -6,7 +6,7 @@ class GeminiParser(AbstractParser):
     """
     Parser implementation using the Gemini API.
     """
-    def __init__(self, model_name: str = "gemma-3-4b-it"):
+    def __init__(self, model_name: str = "gemma-3n-e4b-it"):
         super().__init__(model_name)
         # Configure the Gemini API key from environment variable
         # Ensure you have GOOGLE_API_KEY set in your environment

@@ -1,0 +1,4 @@
+pymongo
+dotenv
+google-genai
+ollama

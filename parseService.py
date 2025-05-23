@@ -1,5 +1,4 @@
 from util.mongoConn import getClient
-import ollama
 from DTO.ParsedArticle import ParsedArticle
 import time
 from dotenv import load_dotenv
@@ -56,19 +55,19 @@ def markAsParsed(db, collection_name, article_id):
     else:
         print(f"Failed to mark article with ID {article_id} as parsed.")
 
-def parseRecord(article):
-    print(f"Parsing article: {article['title']}")
-    # print(OLLAMA_PROMPT.format(article['content']))
-    timeBefore = time.time()
-    response = ollama.chat(model=PARSISNG_MODEL, messages=[
-        {
-            'role': 'user',
-            'content': OLLAMA_PROMPT.format(article['content']),
-        },
-    ])
-    timeAfter = time.time()
-    print(f"Parsing took {timeAfter - timeBefore} seconds")
-    return response['message']['content']
+# def parseRecord(article):
+#     print(f"Parsing article: {article['title']}")
+#     # print(OLLAMA_PROMPT.format(article['content']))
+#     timeBefore = time.time()
+#     response = ollama.chat(model=PARSISNG_MODEL, messages=[
+#         {
+#             'role': 'user',
+#             'content': OLLAMA_PROMPT.format(article['content']),
+#         },
+#     ])
+#     timeAfter = time.time()
+#     print(f"Parsing took {timeAfter - timeBefore} seconds")
+#     return response['message']['content']
 
 def getArticlesToParse(db, collection_name, limit=10):
     collection = db[collection_name]
@@ -95,6 +94,7 @@ if __name__ == "__main__":
                 continue
             markAsParsed(db, SCRAPED_ARTICLES_COLLECTION, article['_id'])
             print(f"Parsed article: {article['title']}")
+            # print(f"Original content: {article['content']}")
             # print(f"Parsed content: {parsedRecord}")
             parsedRecord = ParsedArticle(
                 title=article['title'],
